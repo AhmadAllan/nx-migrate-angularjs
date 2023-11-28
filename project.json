@@ -1,0 +1,34 @@
+{
+  "name": "nx-migrate-angularjs",
+  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/nx-migrate-angularjs",
+        "main": "./src/index.js",
+        "tsConfig": "./tsconfig.lib.json",
+        "assets": ["*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["./src/**/*.js", "./package.json"]
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "coverage/nx-migrate-angularjs"
+      }
+    }
+  },
+  "tags": []
+}

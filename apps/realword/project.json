@@ -1,0 +1,81 @@
+{
+  "name": "realworld",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "nx-migrate-angularjs",
+  "root":"apps/realword",
+  "sourceRoot": "apps/realword/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "options": {
+        "outputPath": "dist/apps/realworld",
+        "index": "apps/realword/src/index.html",
+        "main": "apps/realword/src/main.js",
+        "polyfills": "apps/realword/src/polyfills.ts",
+        "tsConfig": "apps/realword/tsconfig.app.json",    
+        "styles": ["apps/realword/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "apps/realword/webpack.config.js",
+        "buildLibsFromSource": true
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/realworld/src/environments/environment.ts",
+              "with": "apps/realworld/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "extractCss": true,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/webpack:dev-server",
+      "options": {
+        "buildTarget": "realworld:build"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "realworld:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/realword/**/*.ts", "apps/realword/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/realword/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "realworld:build"
+      }
+    }
+  }
+}

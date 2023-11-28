@@ -1,0 +1,30 @@
+{
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.json"],
+      "parser": "jsonc-eslint-parser",
+      "parserOptions": {
+        "sourceType": "module",
+        "allowImportExportEverywhere": true
+      },
+      "rules": {
+        "@nx/dependency-checks": [
+          "error",
+          {
+            "ignoredFiles": ["{projectRoot}/vite.config.{js,ts,mjs,mts}"]
+          }
+        ]
+      }
+    }
+  ],
+  "extends": ["./.eslintrc.base.json"]
+}
